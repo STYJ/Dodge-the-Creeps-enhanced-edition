@@ -72,7 +72,7 @@ func _process(delta):
 
 
 
-func _on_Player_body_entered(body):
+func _on_Player_body_entered(_body):
 	hide()  # Player disappears after being hit.
 	emit_signal("hit")
 	# After the first time the body is hit, you need to set the "Disabled" 
