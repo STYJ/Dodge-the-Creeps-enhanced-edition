@@ -12,11 +12,18 @@ func _ready():
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	$HUD.show_game_over()
+	get_tree().call_group("mobs", "queue_free")
+	$Music.stop()
+	$DeathSound.play()
 
 func new_game():
 	score = 0
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
+	$HUD.update_score(score)
+	$HUD.show_message("Get Ready")
+	$Music.play()
 
 
 # When the mob timer counts down to 0, spawn a mob.
@@ -41,6 +48,7 @@ func _on_MobTimer_timeout():
 # When score timer counts down to 0, add a score.
 func _on_ScoreTimer_timeout():
 	score += 1
+	$HUD.update_score(score)
 
 # When start timer counts down to 0, start! 
 func _on_StartTimer_timeout():
