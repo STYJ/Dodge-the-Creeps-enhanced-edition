@@ -3,6 +3,11 @@ extends RigidBody2D
 export var min_speed = 150  # Minimum speed range.
 export var max_speed = 250  # Maximum speed range.
 
+const ANIMATED_SPRITE_DEFAULT_SCALE = 0.75
+const COLLISION_SHAPE_2D_DEFAULT_SCALE = 1
+const MIN_SCALE_MULTIPLIER = 0.5
+const MAX_SCALE_MULTIPLIER = 1
+
 func _ready():
 	# get_animation_names() returns ["walk", "swim", "fly"]
 	var mob_types = $AnimatedSprite.frames.get_animation_names()
@@ -11,7 +16,18 @@ func _ready():
 	# to be different each time you run the scene. 
 	# we are not using it here because we will be using it in the main scene
 	$AnimatedSprite.animation = mob_types[randi() % mob_types.size()]
-
+	var scale_multiplier = rand_range(
+		MIN_SCALE_MULTIPLIER,
+		MAX_SCALE_MULTIPLIER
+	)
+	
+	# Setting scale of AnimatedSprite and CollisionShape2D nodes
+	var sprite_scale = scale_multiplier * ANIMATED_SPRITE_DEFAULT_SCALE
+	var collision_shape_2d_scale = scale_multiplier * COLLISION_SHAPE_2D_DEFAULT_SCALE
+	$AnimatedSprite.scale.x = sprite_scale
+	$AnimatedSprite.scale.y = sprite_scale
+	$CollisionShape2D.scale.x = collision_shape_2d_scale
+	$CollisionShape2D.scale.y = collision_shape_2d_scale
 
 func _on_VisibilityNotifier2D_screen_exited():
 	# this queues the mob instance to be freed. 
