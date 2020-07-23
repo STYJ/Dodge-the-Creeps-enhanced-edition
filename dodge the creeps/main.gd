@@ -5,6 +5,7 @@ export (PackedScene) var Mob
 
 var score
 const MULTIPLIER = 0.99
+const MOB_TIMER_DEFAULT_WAIT_TIME = 0.5
 
 func _ready():
 	randomize()
@@ -15,6 +16,8 @@ func game_over():
 	get_tree().call_group("mobs", "queue_free")
 	$Music.stop()
 	$DeathSound.play()
+	# Reset MobTimer
+	$MobTimer.wait_time = MOB_TIMER_DEFAULT_WAIT_TIME
 
 func new_game():
 	score = 0
@@ -68,3 +71,5 @@ func _stop_timers():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$MultiplierTimer.stop()
+
+
