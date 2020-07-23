@@ -24,12 +24,14 @@ func _ready():
 	# Setting scale of AnimatedSprite and CollisionShape2D nodes
 	var sprite_scale = scale_multiplier * ANIMATED_SPRITE_DEFAULT_SCALE
 	var collision_shape_2d_scale = scale_multiplier * COLLISION_SHAPE_2D_DEFAULT_SCALE
-	$AnimatedSprite.scale.x = sprite_scale
-	$AnimatedSprite.scale.y = sprite_scale
-	$CollisionShape2D.scale.x = collision_shape_2d_scale
-	$CollisionShape2D.scale.y = collision_shape_2d_scale
+	_set_scale($AnimatedSprite, sprite_scale)
+	_set_scale($CollisionShape2D, collision_shape_2d_scale)
 
 func _on_VisibilityNotifier2D_screen_exited():
-	# this queues the mob instance to be freed. 
-	# Mobs will delete themselves when they leave the screen
+	# Queues the mob instance to be freed. 
+	# Mobs will delete themselves when they leave the screen.
 	queue_free()
+
+func _set_scale(node, value):
+	node.scale.x = value
+	node.scale.y = value
