@@ -4,20 +4,37 @@ extends Node
 export (PackedScene) var Mob
 
 var score
-const MULTIPLIER = 0.99
-const MOB_TIMER_DEFAULT_WAIT_TIME = 0.5
+var highscore = 0
+const MULTIPLIER = 0.995
+const MOB_TIMER_DEFAULT_WAIT_TIME = 0.428
+const PITCH_SCALE_DEFAULT_TIME = 1
 
 func _ready():
 	randomize()
 
 func game_over():
+	# Stop creeps from spawning and scores from increasing
 	_stop_timers()
-	$HUD.show_game_over()
-	get_tree().call_group("mobs", "queue_free")
+	
+	# Play gameover music
 	$Music.stop()
 	$DeathSound.play()
-	# Reset MobTimer
+	
+	# Update HUD to show gameover
+	$HUD.show_game_over()
+	
+	# Cleanup mobs
+	get_tree().call_group("mobs", "queue_free")
+
+	# Reset state for next round 
 	$MobTimer.wait_time = MOB_TIMER_DEFAULT_WAIT_TIME
+	$Music.pitch_scale = PITCH_SCALE_DEFAULT_TIME
+	# Set highscore
+	if(score > highscore):
+		highscore = score
+		
+	yield(get_tree().create_timer(1), "timeout")
+	$HUD.update_highscore(highscore);
 
 func new_game():
 	score = 0
@@ -65,6 +82,7 @@ func _on_StartTimer_timeout():
 # Reduce MobTimer every time MultiplierTimer times out
 func _on_MultiplierTimer_timeout():
 	$MobTimer.wait_time = $MobTimer.wait_time * MULTIPLIER
+	$Music.pitch_scale = $Music.pitch_scale * (1 / MULTIPLIER)
 
 # Stop all timers
 func _stop_timers():
