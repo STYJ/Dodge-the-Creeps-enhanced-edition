@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://dodge_assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
@@ -12,14 +12,8 @@ size = 56
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 64
+size = 48
 font_data = ExtResource( 2 )
-
-[sub_resource type="InputEventAction" id=4]
-action = "ui_select"
-
-[sub_resource type="ShortCut" id=5]
-shortcut = SubResource( 4 )
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -30,9 +24,10 @@ one_shot = true
 
 [node name="ScoreLabel" type="Label" parent="."]
 anchor_right = 1.0
+margin_left = 1.18921
+margin_right = 1.18921
 margin_bottom = 69.0
 custom_fonts/font = SubResource( 1 )
-text = "High score: 0"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -57,13 +52,26 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -90.0
+margin_left = -111.0
 margin_top = -200.0
-margin_right = 90.0
+margin_right = 111.0
 margin_bottom = -100.0
 custom_fonts/font = SubResource( 3 )
-shortcut = SubResource( 5 )
 text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="CanvasLayer" parent="."]
+layer = 2
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CheckBox" type="CheckBox" parent="Menu"]
+margin_right = 24.0
+margin_bottom = 24.0
+text = "test checkbox"
 __meta__ = {
 "_edit_use_anchors_": false
 }
