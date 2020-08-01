@@ -12,7 +12,7 @@ size = 56
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 48
+size = 36
 font_data = ExtResource( 2 )
 
 [node name="HUD" type="CanvasLayer"]
@@ -58,20 +58,6 @@ margin_right = 111.0
 margin_bottom = -100.0
 custom_fonts/font = SubResource( 3 )
 text = "Start"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Menu" type="CanvasLayer" parent="."]
-layer = 2
-__meta__ = {
-"_editor_description_": ""
-}
-
-[node name="CheckBox" type="CheckBox" parent="Menu"]
-margin_right = 24.0
-margin_bottom = 24.0
-text = "test checkbox"
 __meta__ = {
 "_edit_use_anchors_": false
 }
