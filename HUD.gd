@@ -3,8 +3,8 @@ extends CanvasLayer
 signal start_game
 
 func show_message(text):
-	$Message.text = text
-	$Message.show()
+	$VBoxContainer/Body/MessageLabel.text = text
+	$VBoxContainer/Body/MessageLabel.show()
 	$MessageTimer.start()
 
 func show_game_over():
@@ -13,24 +13,37 @@ func show_game_over():
 	# receives a certain signal from a certain node.
 	yield($MessageTimer, "timeout")
 
-	$Message.text = "Dodge the\nCreeps!"
-	$Message.show()
+	$VBoxContainer/Body/MessageLabel.text = "Dodge the\nCreeps!"
+	$VBoxContainer/Body/MessageLabel.show()
 	# Make a one-shot timer and wait for it to finish.
 	yield(get_tree().create_timer(1), "timeout")
-	$StartButton.show()
+	show_buttons()
+	$VBoxContainer/Footer/Version.show()
 	
 func update_highscore(highscore): 
-	$ScoreLabel.text = "High score: %s" % highscore
+	$VBoxContainer/Header/ScoreLabel.text = "High score: %s" % highscore
 	yield(get_tree().create_timer(1), "timeout")
-	$ScoreLabel.hide()
+	$VBoxContainer/Header/ScoreLabel.hide()
 
 func update_score(score):
-	$ScoreLabel.text = str(score)
+	$VBoxContainer/Header/ScoreLabel.text = str(score)
 
 func _on_StartButton_pressed():
-	$StartButton.hide()
-	$ScoreLabel.show()
+	$VBoxContainer/Header/ScoreLabel.show()
+	hide_buttons()
+	$VBoxContainer/Footer/Version.hide()
 	emit_signal("start_game")
 
+func hide_buttons():
+	# You don't want to do $VBoxContainer/Body/Buttons.hide() because it removes
+	# the entire element from the screen. This causes the message label to be 
+	# out of alignment
+	$VBoxContainer/Body/Buttons/Start/Button.hide()
+	$VBoxContainer/Body/Buttons/Settings/Button.hide()
+
+func show_buttons():
+	$VBoxContainer/Body/Buttons/Start/Button.show()
+	$VBoxContainer/Body/Buttons/Settings/Button.show()
+
 func _on_MessageTimer_timeout():
-	$Message.hide()
+	$VBoxContainer/Body/MessageLabel.hide()
