@@ -1,7 +1,8 @@
 extends CanvasLayer
 
 signal start_game
-signal new_modifier
+signal single_life
+signal increased_spawn
 
 func show_message(text):
 	$VBoxContainer/Body/MessageLabel.text = text
@@ -59,24 +60,26 @@ func _on_CloseButton_pressed():
 
 
 func _on_HardcoreCheckbox_pressed():
-	var new_modifier = _calc_new_modifier(
-		$Settings/SettingsValues/Hardcore/HardcoreCheckbox.pressed,
-		int($Settings/DifficultyValue.text),
-		3
-	)
+	var curr_modifier = int($Settings/DifficultyValue.text)
+	var new_modifier = 0
+	if $Settings/SettingsValues/Hardcore/HardcoreCheckbox.pressed:
+		new_modifier = curr_modifier * 3
+		emit_signal("single_life", true)
+	else:
+		new_modifier = curr_modifier / 3
+		emit_signal("single_life", false)
 	_set_difficulty_value(new_modifier)
 
 func _on_SpawnCheckbox_pressed():
-	var new_modifier = _calc_new_modifier(
-		$Settings/SettingsValues/Spawn/SpawnCheckbox.pressed,
-		int($Settings/DifficultyValue.text),
-		2
-	)
+	var curr_modifier = int($Settings/DifficultyValue.text)
+	var new_modifier = 0
+	if $Settings/SettingsValues/Spawn/SpawnCheckbox.pressed:
+		new_modifier = curr_modifier * 2
+		emit_signal("increased_spawn", true)
+	else:
+		new_modifier = curr_modifier / 2
+		emit_signal("increased_spawn", false)
 	_set_difficulty_value(new_modifier)
-
-func _calc_new_modifier(property, curr, multiplier):
-	return curr * multiplier if property else curr / multiplier
 
 func _set_difficulty_value(modifier):
 	$Settings/DifficultyValue.text = " %dx" % modifier if modifier < 10 else "%dx" % modifier
-	emit_signal("new_modifier", modifier)
