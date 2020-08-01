@@ -5,7 +5,8 @@ export (PackedScene) var Mob
 
 var score
 var highscore = 0
-const MULTIPLIER = 0.995
+var single_life_multiplier = 1.3
+var spawn_multiplier = 1
 const MOB_TIMER_DEFAULT_WAIT_TIME = 0.428
 const PITCH_SCALE_DEFAULT_TIME = 1
 
@@ -70,6 +71,7 @@ func _on_MobTimer_timeout():
 
 # When ScoreTimer counts down to 0, add a score.
 func _on_ScoreTimer_timeout():
+	# Todo: add spawn multipler here
 	score += 1
 	$HUD.update_score(score)
 
@@ -81,8 +83,8 @@ func _on_StartTimer_timeout():
 
 # Reduce MobTimer every time MultiplierTimer times out
 func _on_MultiplierTimer_timeout():
-	$MobTimer.wait_time = $MobTimer.wait_time * MULTIPLIER
-	$Music.pitch_scale = $Music.pitch_scale * (1 / MULTIPLIER)
+	$MobTimer.wait_time = $MobTimer.wait_time * spawn_multiplier
+	$Music.pitch_scale = $Music.pitch_scale * (1 / spawn_multiplier)
 
 # Stop all timers
 func _stop_timers():
@@ -91,3 +93,10 @@ func _stop_timers():
 	$MultiplierTimer.stop()
 
 
+func _on_HUD_single_life(is_true):
+	print("single life") if is_true else print("multiple lives")
+	pass # Replace with function body.
+
+
+func _on_HUD_increased_spawn(is_true):
+	spawn_multiplier = 0.995 if is_true else 1

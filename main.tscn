@@ -59,4 +59,6 @@ stream = ExtResource( 5 )
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="timeout" from="MultiplierTimer" to="." method="_on_MultiplierTimer_timeout"]
+[connection signal="increased_spawn" from="HUD" to="." method="_on_HUD_increased_spawn"]
+[connection signal="single_life" from="HUD" to="." method="_on_HUD_single_life"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
