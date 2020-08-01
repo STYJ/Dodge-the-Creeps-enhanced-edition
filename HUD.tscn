@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://dodge_assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://dodge_assets/art/menu_bg.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 56
@@ -15,11 +16,31 @@ font_data = ExtResource( 2 )
 size = 36
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 36
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 36
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 36
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 36
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 24
 font_data = ExtResource( 2 )
 
 [node name="HUD" type="CanvasLayer"]
@@ -56,7 +77,6 @@ __meta__ = {
 }
 
 [node name="Body" type="VBoxContainer" parent="VBoxContainer"]
-visible = false
 margin_top = 84.0
 margin_right = 480.0
 margin_bottom = 676.0
@@ -85,14 +105,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 
 [node name="Start" type="MarginContainer" parent="VBoxContainer/Body/Buttons"]
-margin_left = -1.0
 margin_top = 32.0
-margin_right = 199.0
+margin_right = 200.0
 margin_bottom = 112.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Button" type="Button" parent="VBoxContainer/Body/Buttons/Start"]
+[node name="StartButton" type="Button" parent="VBoxContainer/Body/Buttons/Start"]
 margin_right = 200.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 200, 80 )
@@ -104,25 +123,24 @@ __meta__ = {
 }
 
 [node name="Settings" type="MarginContainer" parent="VBoxContainer/Body/Buttons"]
-margin_left = -1.0
 margin_top = 149.0
-margin_right = 199.0
+margin_right = 200.0
 margin_bottom = 229.0
 size_flags_horizontal = 6
 size_flags_vertical = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/Body/Buttons/Settings"]
+[node name="SettingsButton" type="Button" parent="VBoxContainer/Body/Buttons/Settings"]
 margin_right = 200.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 200, 80 )
 size_flags_horizontal = 0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Settings"
 
 [node name="Footer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 84.0
+margin_top = 680.0
 margin_right = 480.0
-margin_bottom = 124.0
+margin_bottom = 720.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="Version" type="MarginContainer" parent="VBoxContainer/Footer"]
@@ -134,19 +152,127 @@ rect_min_size = Vector2( 120, 40 )
 margin_top = 10.0
 margin_right = 120.0
 margin_bottom = 30.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Version: 1.1"
 align = 1
 valign = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
-anchor_top = 0.5
+[node name="Settings" type="TextureRect" parent="."]
+visible = false
 anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -0.5
-margin_bottom = 0.5
+anchor_bottom = 1.0
+margin_left = 23.0
+margin_top = 39.0
+margin_right = -18.0
+margin_bottom = -43.0
+texture = ExtResource( 3 )
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CloseButton" type="Button" parent="Settings"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -60.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 6 )
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsLabel" type="Label" parent="Settings"]
+anchor_right = 1.0
+margin_top = 37.0
+margin_bottom = 115.0
+custom_fonts/font = SubResource( 7 )
+text = "Settings"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DifficultyLabel" type="Label" parent="Settings"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -207.238
+margin_top = 145.0
+margin_right = 132.762
+margin_bottom = 189.0
+custom_fonts/font = SubResource( 8 )
+text = "Difficulty Modifier:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DifficultyValue" type="Label" parent="Settings"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 134.5
+margin_top = 145.0
+margin_right = 194.5
+margin_bottom = 189.0
+custom_fonts/font = SubResource( 9 )
+text = " 1x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsValues" type="VBoxContainer" parent="Settings"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -149.0
+margin_top = -92.0
+margin_right = 149.0
+margin_bottom = 92.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Hardcore" type="HBoxContainer" parent="Settings/SettingsValues"]
+margin_right = 298.0
+margin_bottom = 30.0
+
+[node name="HardcoreCheckbox" type="CheckBox" parent="Settings/SettingsValues/Hardcore"]
+margin_right = 24.0
+margin_bottom = 30.0
+size_flags_horizontal = 5
+
+[node name="HardcoreLabel" type="Label" parent="Settings/SettingsValues/Hardcore"]
+margin_left = 28.0
+margin_right = 298.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 10 )
+text = "Single Life"
+
+[node name="Spawn" type="HBoxContainer" parent="Settings/SettingsValues"]
+margin_top = 34.0
+margin_right = 298.0
+margin_bottom = 64.0
+
+[node name="SpawnCheckbox" type="CheckBox" parent="Settings/SettingsValues/Spawn"]
+margin_right = 24.0
+margin_bottom = 30.0
+
+[node name="SpawnLabel" type="Label" parent="Settings/SettingsValues/Spawn"]
+margin_left = 28.0
+margin_right = 298.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 10 )
+text = "Increased Spawn"
 [connection signal="timeout" from="MessageTimer" to="." method="_on_MessageTimer_timeout"]
-[connection signal="pressed" from="VBoxContainer/Body/Buttons/Start/Button" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Body/Buttons/Start/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Body/Buttons/Settings/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="Settings/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Settings/SettingsValues/Hardcore/HardcoreCheckbox" to="." method="_on_HardcoreCheckbox_pressed"]
+[connection signal="pressed" from="Settings/SettingsValues/Spawn/SpawnCheckbox" to="." method="_on_SpawnCheckbox_pressed"]
