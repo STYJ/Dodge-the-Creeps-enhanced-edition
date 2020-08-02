@@ -48,14 +48,7 @@ func _process(delta):
 	position.y = clamp(position.y, 0, screen_size.y)
 
 func _on_Player_body_entered(_body):
-	hide()  # Player disappears after being hit.
 	emit_signal("hit")
-	# After the first time the body is hit, you need to set the "Disabled" 
-	# property on the CollisionShape2D child node to true. 
-	# set_deferred() is used so we dont accidentally disable it when the engine
-	# collision is processing. It tells Godot engine to disable it when it is 
-	# safe to do so.
-	$CollisionShape2D.set_deferred("disabled", true)
 
 # This function is to be called when the game is started or to reset the game
 func start(pos):

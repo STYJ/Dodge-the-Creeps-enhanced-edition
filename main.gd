@@ -7,13 +7,25 @@ var score
 var highscore = 0
 var single_life_multiplier = 1.3
 var spawn_multiplier = 1
+var single_life = false
+var lives = 3
 const MOB_TIMER_DEFAULT_WAIT_TIME = 0.428
 const PITCH_SCALE_DEFAULT_TIME = 1
 
 func _ready():
 	randomize()
 
+# when main detects the "died" signal
 func game_over():
+	# Hide player
+	$Player.hide()
+	# After the player dies, you need to set the "Disabled" 
+	# property on the CollisionShape2D child node to true. 
+	# set_deferred() is used so we dont accidentally disable it when the engine
+	# collision is processing. It tells Godot engine to disable it when it is 
+	# safe to do so.
+	$Player/CollisionShape2D.set_deferred("disabled", true)
+	
 	# Stop creeps from spawning and scores from increasing
 	_stop_timers()
 	
@@ -21,24 +33,23 @@ func game_over():
 	$Music.stop()
 	$DeathSound.play()
 	
-	# Update HUD to show gameover
-	$HUD.show_game_over()
-	
-	# Cleanup mobs
-	get_tree().call_group("mobs", "queue_free")
-
-	# Reset state for next round 
-	$MobTimer.wait_time = MOB_TIMER_DEFAULT_WAIT_TIME
-	$Music.pitch_scale = PITCH_SCALE_DEFAULT_TIME
 	# Set highscore
 	if(score > highscore):
 		highscore = score
 		
-	yield(get_tree().create_timer(1), "timeout")
-	$HUD.update_highscore(highscore);
+	# Update HUD to show gameover
+	$HUD.show_game_over(highscore)
+	
+	# Cleanup mobs
+	get_tree().call_group("mobs", "queue_free")
 
 func new_game():
+	# Reset state
 	score = 0
+	$MobTimer.wait_time = MOB_TIMER_DEFAULT_WAIT_TIME
+	$Music.pitch_scale = PITCH_SCALE_DEFAULT_TIME
+	lives = 1 if single_life else 3
+	
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
@@ -92,11 +103,18 @@ func _stop_timers():
 	$MobTimer.stop()
 	$MultiplierTimer.stop()
 
-
 func _on_HUD_single_life(is_true):
-	print("single life") if is_true else print("multiple lives")
-	pass # Replace with function body.
-
+	single_life = is_true
+	lives = 1 if is_true else 3
 
 func _on_HUD_increased_spawn(is_true):
 	spawn_multiplier = 0.995 if is_true else 1
+
+func _on_Player_hit():
+#	can't seem to do game_over() if lives == 0 else lives--
+#	also can't do like -- lives
+	lives -= 1
+	# Todo: Play hit sound
+	# clear mobs, spawn again after 2 seconds of blinking
+	if(lives == 0):
+		game_over()
