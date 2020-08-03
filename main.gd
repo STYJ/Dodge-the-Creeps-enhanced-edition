@@ -126,6 +126,9 @@ func _on_Player_hit():
 #	also can't do like -- lives
 	lives -= 1
 	# Todo: Play hit sound
+	
 	# clear mobs, spawn again after 2 seconds of blinking
 	if(lives == 0):
 		game_over()
+	else:
+		$CollisionSound.play()
