@@ -5,10 +5,10 @@ export (PackedScene) var Mob
 
 var score
 var highscore = 0
-var single_life_multiplier = 1.3
 var spawn_multiplier = 1
 var single_life = false
 var lives = 3
+var score_multiplier = 1
 const MOB_TIMER_DEFAULT_WAIT_TIME = 0.428
 const PITCH_SCALE_DEFAULT_TIME = 1
 
@@ -83,8 +83,8 @@ func _on_MobTimer_timeout():
 # When ScoreTimer counts down to 0, add a score.
 func _on_ScoreTimer_timeout():
 	# Todo: add spawn multipler here
-	score += 1
-	$HUD.update_score(score)
+	score += 1 * score_multiplier
+	$HUD.update_score(round(score))
 
 # When StartTimer counts down to 0, start! 
 func _on_StartTimer_timeout():
@@ -104,11 +104,22 @@ func _stop_timers():
 	$MultiplierTimer.stop()
 
 func _on_HUD_single_life(is_true):
+	# I need this global variable to detect how much life to restart the game with
 	single_life = is_true
-	lives = 1 if is_true else 3
+	if is_true:
+		lives = 1
+		score_multiplier *= 2
+	else:
+		lives = 3
+		score_multiplier /= 2
 
 func _on_HUD_increased_spawn(is_true):
-	spawn_multiplier = 0.995 if is_true else 1
+	if is_true:
+		spawn_multiplier = 0.990
+		score_multiplier *= 1.5
+	else:
+		spawn_multiplier = 1
+		score_multiplier /= 1.5
 
 func _on_Player_hit():
 #	can't seem to do game_over() if lives == 0 else lives--
