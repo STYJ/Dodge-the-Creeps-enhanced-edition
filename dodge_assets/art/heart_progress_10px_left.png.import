@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/3_hearts_fg.png-ee56925e037bca7a2d0b9ee8d7b96cbf.stex"
+path="res://.import/heart_progress_10px_left.png-89f9f75ae7d1a5f5df22b2258a48b6db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dodge_assets/art/3_hearts_fg.png"
-dest_files=[ "res://.import/3_hearts_fg.png-ee56925e037bca7a2d0b9ee8d7b96cbf.stex" ]
+source_file="res://dodge_assets/art/heart_progress_10px_left.png"
+dest_files=[ "res://.import/heart_progress_10px_left.png-89f9f75ae7d1a5f5df22b2258a48b6db.stex" ]
 
 [params]
 

@@ -47,14 +47,12 @@ func _on_StartButton_pressed():
 func _show_lives():
 	if $Settings/SettingsValues/Hardcore/HardcoreCheckbox.pressed:
 		$VBoxContainer/Header/Lives/OneLife.show()
-		$VBoxContainer/Header/Lives/Spacer.show()
 	else:
 		$VBoxContainer/Header/Lives/ThreeLives.show()
 
 func _hide_lives():
 	if $Settings/SettingsValues/Hardcore/HardcoreCheckbox.pressed:
 		$VBoxContainer/Header/Lives/OneLife.hide()
-		$VBoxContainer/Header/Lives/Spacer.hide()
 	else:
 		$VBoxContainer/Header/Lives/ThreeLives.hide()
 

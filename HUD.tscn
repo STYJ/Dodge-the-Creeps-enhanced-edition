@@ -3,10 +3,10 @@
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://dodge_assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://dodge_assets/art/menu_bg.png" type="Texture" id=3]
-[ext_resource path="res://dodge_assets/art/3_hearts_fg.png" type="Texture" id=4]
-[ext_resource path="res://dodge_assets/art/3_hearts_bg.png" type="Texture" id=5]
-[ext_resource path="res://dodge_assets/art/heart_fg.png" type="Texture" id=6]
-[ext_resource path="res://dodge_assets/art/heart_bg.png" type="Texture" id=7]
+[ext_resource path="res://dodge_assets/art/heart_over_10px_left.png" type="Texture" id=4]
+[ext_resource path="res://dodge_assets/art/3_heart_over_10px_left.png" type="Texture" id=5]
+[ext_resource path="res://dodge_assets/art/3_heart_progress_10px_left.png" type="Texture" id=6]
+[ext_resource path="res://dodge_assets/art/heart_progress_10px_left.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 56
@@ -76,34 +76,25 @@ __meta__ = {
 
 [node name="OneLife" type="TextureProgress" parent="VBoxContainer/Header/Lives"]
 visible = false
-margin_left = 53.0
-margin_top = 17.0
-margin_right = 103.0
-margin_bottom = 63.0
-size_flags_horizontal = 6
+margin_top = 21.0
+margin_right = 50.0
+margin_bottom = 58.0
+size_flags_horizontal = 2
 size_flags_vertical = 6
 max_value = 99.0
-texture_over = ExtResource( 7 )
-texture_progress = ExtResource( 6 )
-
-[node name="Spacer" type="CenterContainer" parent="VBoxContainer/Header/Lives"]
-visible = false
-margin_left = 80.0
-margin_right = 157.0
-margin_bottom = 80.0
-size_flags_horizontal = 3
+texture_over = ExtResource( 4 )
+texture_progress = ExtResource( 7 )
 
 [node name="ThreeLives" type="TextureProgress" parent="VBoxContainer/Header/Lives"]
 visible = false
-margin_left = 7.0
-margin_top = 17.0
-margin_right = 157.0
-margin_bottom = 63.0
-size_flags_horizontal = 10
+margin_top = 21.0
+margin_right = 150.0
+margin_bottom = 58.0
+size_flags_horizontal = 2
 size_flags_vertical = 6
 max_value = 99.0
 texture_over = ExtResource( 5 )
-texture_progress = ExtResource( 4 )
+texture_progress = ExtResource( 6 )
 
 [node name="ScoreLabel" type="Label" parent="VBoxContainer/Header"]
 margin_left = 239.0

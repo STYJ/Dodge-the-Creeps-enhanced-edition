@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/3_hearts_bg.png-44eede4db378a431cbc353ab4ab351ca.stex"
+path="res://.import/3_heart_over_10px_left.png-0ed0fb4fbf14cda814f4b383bc950800.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dodge_assets/art/3_hearts_bg.png"
-dest_files=[ "res://.import/3_hearts_bg.png-44eede4db378a431cbc353ab4ab351ca.stex" ]
+source_file="res://dodge_assets/art/3_heart_over_10px_left.png"
+dest_files=[ "res://.import/3_heart_over_10px_left.png-0ed0fb4fbf14cda814f4b383bc950800.stex" ]
 
 [params]
 
