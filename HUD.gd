@@ -26,8 +26,7 @@ func show_game_over(highscore):
 	yield(get_tree().create_timer(1), "timeout")
 	_show_buttons()
 	$VBoxContainer/Footer/Version.show()
-	
-	
+
 func _update_highscore(highscore): 
 	$VBoxContainer/Header/ScoreLabel.text = "High score: %s" % highscore
 	yield(get_tree().create_timer(1), "timeout")
@@ -35,14 +34,6 @@ func _update_highscore(highscore):
 
 func update_score(score):
 	$VBoxContainer/Header/ScoreLabel.text = str(score)
-
-func _on_StartButton_pressed():
-	_show_lives()
-	$VBoxContainer/Header/ScoreLabel.show()
-	_hide_buttons()
-	$VBoxContainer/Footer/Version.hide()
-	update_health(MAX_HEALTH)
-	emit_signal("start_game")
 
 func _show_lives():
 	if $Settings/SettingsValues/Hardcore/HardcoreCheckbox.pressed:
@@ -70,14 +61,8 @@ func _show_buttons():
 func _on_MessageTimer_timeout():
 	$VBoxContainer/Body/MessageLabel.hide()
 
-
-func _on_SettingsButton_pressed():
-	$Settings.show()
-
-
 func _on_CloseButton_pressed():
 	$Settings.hide()
-
 
 func _on_HardcoreCheckbox_pressed():
 	var curr_modifier = int($Settings/DifficultyValue.text)
@@ -123,3 +108,20 @@ func update_health(new_value):
 func _on_Player_hit():
 	var damage = MAX_HEALTH if $Settings/SettingsValues/Hardcore/HardcoreCheckbox.pressed else MAX_HEALTH/3
 	update_health(animated_health - damage)
+
+
+func _on_StartButton_gui_input(event):
+	if event is InputEventMouseButton || event is InputEventScreenTouch:
+		if event.is_pressed():
+			_show_lives()
+			$VBoxContainer/Header/ScoreLabel.show()
+			_hide_buttons()
+			$VBoxContainer/Footer/Version.hide()
+			update_health(MAX_HEALTH)
+			emit_signal("start_game")
+
+
+func _on_SettingsButton_gui_input(event):
+	if event is InputEventMouseButton || event is InputEventScreenTouch:
+		if event.is_pressed():
+			$Settings.show()
