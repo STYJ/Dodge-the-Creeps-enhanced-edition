@@ -9,6 +9,8 @@ var spawn_multiplier = 1
 var single_life = false
 var lives = 3
 var score_multiplier = 1
+var if_not_hit = 1
+var is_hidden = false
 const MOB_TIMER_DEFAULT_WAIT_TIME = 0.428
 const PITCH_SCALE_DEFAULT_TIME = 1
 
@@ -58,32 +60,33 @@ func new_game():
 
 # When the MobTimer counts down to 0, spawn a mob.
 func _on_MobTimer_timeout():
-	# Choose a random location on Path2D.
-	$MobPath/MobSpawnLocation.offset = randi()
-	
-	# Create a Mob instance and add it to the scene.
-	var mob = Mob.instance()
-	add_child(mob)
-	
-	# Set the mob's direction perpendicular to the path direction. 
-	# We use Pi because GDScript uses radians, not degrees
-	var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
-	
-	# Set the mob's position to a random location.
-	mob.position = $MobPath/MobSpawnLocation.position
-	
-	# Add some randomness to the direction.
-	direction += rand_range(-PI / 4, PI / 4)
-	mob.rotation = direction
-	
-	# Set the velocity (speed & direction).
-	mob.linear_velocity = Vector2(rand_range(mob.min_speed, mob.max_speed), 0)
-	mob.linear_velocity = mob.linear_velocity.rotated(direction)
+	if if_not_hit:
+		# Choose a random location on Path2D.
+		$MobPath/MobSpawnLocation.offset = randi()
+		
+		# Create a Mob instance and add it to the scene.
+		var mob = Mob.instance()
+		add_child(mob)
+		
+		# Set the mob's direction perpendicular to the path direction. 
+		# We use Pi because GDScript uses radians, not degrees
+		var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
+		
+		# Set the mob's position to a random location.
+		mob.position = $MobPath/MobSpawnLocation.position
+		
+		# Add some randomness to the direction.
+		direction += rand_range(-PI / 4, PI / 4)
+		mob.rotation = direction
+		
+		# Set the velocity (speed & direction).
+		mob.linear_velocity = Vector2(rand_range(mob.min_speed, mob.max_speed), 0)
+		mob.linear_velocity = mob.linear_velocity.rotated(direction)
 
 # When ScoreTimer counts down to 0, add a score.
 func _on_ScoreTimer_timeout():
 	# Todo: add spawn multipler here
-	score += 1 * score_multiplier
+	score += 1 * score_multiplier * if_not_hit
 	$HUD.update_score(round(score))
 
 # When StartTimer counts down to 0, start! 
@@ -122,13 +125,30 @@ func _on_HUD_increased_spawn(is_true):
 		score_multiplier /= 1.5
 
 func _on_Player_hit():
-#	can't seem to do game_over() if lives == 0 else lives--
-#	also can't do like -- lives
+	# can't seem to do game_over() if lives == 0 else lives--
+	# also can't do like -- lives
 	lives -= 1
-	# Todo: Play hit sound
-	
-	# clear mobs, spawn again after 2 seconds of blinking
 	if(lives == 0):
 		game_over()
 	else:
+		# Play collision music
 		$CollisionSound.play()
+
+		# clear all mobs, mobs spawn again after 2 seconds
+		get_tree().call_group("mobs", "queue_free")
+
+		# player unable to move (remove speed)
+		$Player.speed = 0
+		# score stop increasing
+		if_not_hit = 0
+		# player is blinking
+		for _n in range(6):
+			yield(get_tree().create_timer(0.3), "timeout")
+
+			$Player.show() if is_hidden else $Player.hide()
+			is_hidden = !is_hidden
+
+		# After 2 seconds, resume everything
+		$Player.speed = 300
+		if_not_hit = 1
+
