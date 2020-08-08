@@ -118,7 +118,7 @@ func _process(_delta):
 func update_health(new_value):
 	if not tween.is_active():
 		tween.start()
-	tween.interpolate_property(self, "animated_health", animated_health, new_value, 0.1)
+	tween.interpolate_property(self, "animated_health", animated_health, new_value, 0.3)
 
 func _on_Player_hit():
 	var damage = MAX_HEALTH if $Settings/SettingsValues/Hardcore/HardcoreCheckbox.pressed else MAX_HEALTH/3
