@@ -144,7 +144,6 @@ func _on_Player_hit():
 		# player is blinking
 		for _n in range(6):
 			yield(get_tree().create_timer(0.3), "timeout")
-
 			$Player.show() if is_hidden else $Player.hide()
 			is_hidden = !is_hidden
 
