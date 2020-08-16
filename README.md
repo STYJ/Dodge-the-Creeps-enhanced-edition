@@ -8,7 +8,7 @@ Original: https://docs.godotengine.org/en/stable/getting_started/step_by_step/yo
 - Difficulty setting
 - Lives
 - High score
-- New movement controls (mobile friendly!) 
+- New movement controls (android friendly, doesn't work well with iOS sorry!) 
 - Mob spawn in sync with music's BPM
 
 # How to import?
