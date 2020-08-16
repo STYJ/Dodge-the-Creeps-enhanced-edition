@@ -59,8 +59,8 @@ stream = ExtResource( 5 )
 [node name="CollisionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 pitch_scale = 1.25
-[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="hit" from="Player" to="HUD" method="_on_Player_hit"]
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]

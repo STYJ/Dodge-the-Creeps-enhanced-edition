@@ -1,10 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
+[ext_resource path="res://dodge_assets/art/jellyfish_5.png" type="Texture" id=1]
+[ext_resource path="res://dodge_assets/art/jellyfish_4.png" type="Texture" id=2]
 [ext_resource path="res://dodge_assets/art/enemySwimming_1.png" type="Texture" id=3]
 [ext_resource path="res://dodge_assets/art/enemySwimming_2.png" type="Texture" id=4]
 [ext_resource path="res://dodge_assets/art/enemyWalking_2.png" type="Texture" id=5]
 [ext_resource path="res://dodge_assets/art/enemyWalking_1.png" type="Texture" id=6]
 [ext_resource path="res://mob.gd" type="Script" id=7]
+[ext_resource path="res://dodge_assets/art/jellyfish_6.png" type="Texture" id=8]
+[ext_resource path="res://dodge_assets/art/jellyfish_3.png" type="Texture" id=9]
+[ext_resource path="res://dodge_assets/art/jellyfish_2.png" type="Texture" id=10]
+[ext_resource path="res://dodge_assets/art/jellyfish_1.png" type="Texture" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -17,6 +23,11 @@ animations = [ {
 "loop": true,
 "name": "swim",
 "speed": 3.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "JellyFish",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -36,8 +47,7 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
-animation = "walk"
-frame = 1
+animation = "JellyFish"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
