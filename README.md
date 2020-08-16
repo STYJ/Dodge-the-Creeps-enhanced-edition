@@ -4,9 +4,12 @@ Original: https://docs.godotengine.org/en/stable/getting_started/step_by_step/yo
 
 # What's new?
 - Mobs spawn in random sizes
-- More mobs spawn the longer you survive
-- Music pace in sync with mob spawn rate
-- high score
+- 2 new types of mobs
+- Difficulty setting
+- Lives
+- High score
+- New movement controls (mobile friendly!) 
+- Mob spawn in sync with music's BPM
 
 # How to import?
 
