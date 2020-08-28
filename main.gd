@@ -111,18 +111,18 @@ func _on_HUD_single_life(is_true):
 	single_life = is_true
 	if is_true:
 		lives = 1
-		score_multiplier *= 2
+		score_multiplier *= 4
 	else:
 		lives = 3
-		score_multiplier /= 2
+		score_multiplier /= 4
 
 func _on_HUD_increased_spawn(is_true):
 	if is_true:
 		spawn_multiplier = 0.990
-		score_multiplier *= 1.5
+		score_multiplier *= 3
 	else:
 		spawn_multiplier = 1
-		score_multiplier /= 1.5
+		score_multiplier /= 3
 
 func _on_Player_hit():
 	# can't seem to do game_over() if lives == 0 else lives--

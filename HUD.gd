@@ -69,11 +69,11 @@ func _on_HardcoreCheckbox_pressed():
 	var new_modifier = 0
 	if $Settings/SettingsValues/Hardcore/HardcoreCheckbox.pressed:
 		heart = $VBoxContainer/Header/Lives/OneLife
-		new_modifier = curr_modifier * 3
+		new_modifier = curr_modifier * 4
 		emit_signal("single_life", true)
 	else:
 		heart = $VBoxContainer/Header/Lives/ThreeLives
-		new_modifier = curr_modifier / 3
+		new_modifier = curr_modifier / 4
 		emit_signal("single_life", false)
 	_set_difficulty_value(new_modifier)
 
@@ -81,10 +81,10 @@ func _on_SpawnCheckbox_pressed():
 	var curr_modifier = int($Settings/DifficultyValue.text)
 	var new_modifier = 0
 	if $Settings/SettingsValues/Spawn/SpawnCheckbox.pressed:
-		new_modifier = curr_modifier * 2
+		new_modifier = curr_modifier * 3
 		emit_signal("increased_spawn", true)
 	else:
-		new_modifier = curr_modifier / 2
+		new_modifier = curr_modifier / 3
 		emit_signal("increased_spawn", false)
 	_set_difficulty_value(new_modifier)
 
